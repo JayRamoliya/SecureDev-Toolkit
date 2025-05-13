@@ -9,6 +9,7 @@ import { Progress } from '@/components/ui/progress';
 import { Switch } from '@/components/ui/switch';
 import PageContainer from '@/components/PageContainer';
 import { Copy } from 'lucide-react';
+import { type CheckedState } from "@radix-ui/react-checkbox";
 
 const PasswordGenerator: React.FC = () => {
   const [password, setPassword] = useState('');
@@ -19,6 +20,23 @@ const PasswordGenerator: React.FC = () => {
   const [symbols, setSymbols] = useState(true);
   const [autoRefresh, setAutoRefresh] = useState(false);
   const [strength, setStrength] = useState(0);
+  
+  // Define handler functions to fix the type mismatch
+  const handleUppercaseChange = (checked: CheckedState) => {
+    setUppercase(checked === true);
+  };
+  
+  const handleLowercaseChange = (checked: CheckedState) => {
+    setLowercase(checked === true);
+  };
+  
+  const handleNumbersChange = (checked: CheckedState) => {
+    setNumbers(checked === true);
+  };
+  
+  const handleSymbolsChange = (checked: CheckedState) => {
+    setSymbols(checked === true);
+  };
   
   const generatePassword = () => {
     let charset = '';
@@ -137,28 +155,28 @@ const PasswordGenerator: React.FC = () => {
             
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
-                <Checkbox id="uppercase" checked={uppercase} onCheckedChange={setUppercase} />
+                <Checkbox id="uppercase" checked={uppercase} onCheckedChange={handleUppercaseChange} />
                 <label htmlFor="uppercase" className="text-sm font-medium leading-none cursor-pointer">
                   Uppercase (A-Z)
                 </label>
               </div>
               
               <div className="flex items-center space-x-2">
-                <Checkbox id="lowercase" checked={lowercase} onCheckedChange={setLowercase} />
+                <Checkbox id="lowercase" checked={lowercase} onCheckedChange={handleLowercaseChange} />
                 <label htmlFor="lowercase" className="text-sm font-medium leading-none cursor-pointer">
                   Lowercase (a-z)
                 </label>
               </div>
               
               <div className="flex items-center space-x-2">
-                <Checkbox id="numbers" checked={numbers} onCheckedChange={setNumbers} />
+                <Checkbox id="numbers" checked={numbers} onCheckedChange={handleNumbersChange} />
                 <label htmlFor="numbers" className="text-sm font-medium leading-none cursor-pointer">
                   Numbers (0-9)
                 </label>
               </div>
               
               <div className="flex items-center space-x-2">
-                <Checkbox id="symbols" checked={symbols} onCheckedChange={setSymbols} />
+                <Checkbox id="symbols" checked={symbols} onCheckedChange={handleSymbolsChange} />
                 <label htmlFor="symbols" className="text-sm font-medium leading-none cursor-pointer">
                   Symbols (!@#$%^&*)
                 </label>
